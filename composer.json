@@ -1,0 +1,19 @@
+{
+    "name": "obijuan/obi-remove-post-types-from-search",
+    "description": "Include or exclude post types from the WordPress search",
+    "type": "wordpress-plugin",
+    "license": "GPL2 or Later",
+    "autoload": {
+        "psr-4": {
+            "ObiRemovePostTypesFromSearch\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Obi Juan",
+            "email": "hola@obijuan.dev"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

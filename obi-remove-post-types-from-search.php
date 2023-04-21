@@ -19,6 +19,10 @@
 
  }
 
+require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+
+use ObiRemovePostTypesFromSearch\AdminPage;
+
  final class Obi_Init{
 
     private static $instance;
@@ -53,6 +57,7 @@
 
     public static function load_obi_plugin(){
         // On plugins loaded...
+        AdminPage::get_instance();
     }
 
     public static function activate(){
