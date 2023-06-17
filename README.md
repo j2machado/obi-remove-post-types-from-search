@@ -5,4 +5,8 @@ Upon activation, in the plugin settings you'll find a list of all the public (cu
 The ones search-enabled will have a checkbox ticked on.  
 You can remove them simply by unticking the corresponding checkbox and save the changes.  
 
-This is a work in progress. The main functionality still is not part of the plugin.
+This is a work in progress.
+
+A demo image:
+
+![Alt Obi Remove Post Types from Search admin options screenshot](https://obijuan.dev/wp-content/uploads/2023/06/obi-remove-post-types-from-search.png)
