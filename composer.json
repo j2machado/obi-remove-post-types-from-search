@@ -5,7 +5,7 @@
     "license": "GPL2 or Later",
     "autoload": {
         "psr-4": {
-            "ObiRemovePostTypesFromSearch\\": "src/"
+            "ObiRemovePostTypesFromSearch\\Includes\\Admin\\": "includes/admin/"
         }
     },
     "authors": [
