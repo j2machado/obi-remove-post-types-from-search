@@ -46,11 +46,6 @@ class AdminPage
     public static function obi_options_page_callback()
     {
 
-        echo '<div class="wrap">';
-        echo '<h1>My Plugin Options</h1>';
-        echo '<div id="root"></div>';
-        echo '</div>';
-
         echo '<div id="obi-remove-post-types-from-search-options"></div>';
     }
 
