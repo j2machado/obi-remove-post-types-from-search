@@ -49,14 +49,18 @@ class AdminPage
         echo '<div id="obi-remove-post-types-from-search-options"></div>';
     }
 
-    public static function obi_enqueue_admin_scripts()
-    {
-
-        wp_enqueue_style('obi-options-styles', OBI_REMOVE_POST_TYPES_FROM_SEARCH_URL . 'assets/css/admin.css', array(), '1.0.0');
-        wp_enqueue_script('obi-options-scripts', OBI_REMOVE_POST_TYPES_FROM_SEARCH_URL . 'dist/js/obi-options.js', array('wp-element'), '1.0.0', true);
-        wp_localize_script('obi-options-ajax', 'obiOptions', array(
+    public static function obi_enqueue_admin_scripts() {
+        //wp_enqueue_style('obi-options-styles', OBI_REMOVE_POST_TYPES_FROM_SEARCH_URL . 'assets/css/admin.css', array(), '1.0.0');
+    
+        // ensure this is the script you are using in the front end
+        wp_enqueue_script('obi-options-scripts', OBI_REMOVE_POST_TYPES_FROM_SEARCH_URL . 'assets/js/react/obi-options.js', array('wp-element', 'wp-api'), '1.0.0', true);
+    
+        // localize right after enqueuing the script
+        wp_localize_script('obi-options-scripts', 'obiOptions', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('obi-options')
+            'nonce' => wp_create_nonce('obi-options'),
+            'root' => esc_url_raw(rest_url()),
         ));
     }
+    
 }
