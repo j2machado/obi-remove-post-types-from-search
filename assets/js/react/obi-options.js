@@ -36,7 +36,7 @@ function App() {
                     ))}
                 </div>
 
-                <div style={{ backgroundColor: 'white', padding: '10px 0' }}>
+                <div style={{ backgroundColor: 'white', padding: '10px 0', filter: 'drop-shadow(-10px 10px 20px rgba(0,0,0,0.1))' }}>
                 {activeTab === 'tab1' && (
                     <div style={{ padding: '25px 75px' }}>
                         <h2>Select or deselect a post type</h2>
