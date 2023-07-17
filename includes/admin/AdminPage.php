@@ -52,7 +52,7 @@ class AdminPage
     public static function obi_enqueue_admin_scripts() {
         //wp_enqueue_style('obi-options-styles', OBI_REMOVE_POST_TYPES_FROM_SEARCH_URL . 'assets/css/admin.css', array(), '1.0.0');
     
-        // ensure this is the script you are using in the front end
+        // Output script
         wp_enqueue_script('obi-options-scripts', OBI_REMOVE_POST_TYPES_FROM_SEARCH_URL . 'dist/js/obi-options.js', array('wp-element', 'wp-api'), '1.0.0', true);
     
         // localize right after enqueuing the script
