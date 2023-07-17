@@ -109,7 +109,6 @@ class PostTypes {
         }
     }
 
-    // Add two new methods in your class to handle the addition or removal of post types
     public static function handle_new_post_type($post_type, $args) {
         $post_type_statuses = get_option('obiRCPT_post_type_statuses', []);
 
