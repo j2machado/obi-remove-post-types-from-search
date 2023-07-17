@@ -11,6 +11,9 @@ class PostTypes {
 
     private function __construct() {
         add_action( 'rest_api_init', array(__CLASS__, 'register_post_types_endpoints' ) );
+        add_action( 'pre_get_posts', array(__CLASS__, 'adjust_search_query' ) );
+        add_action( 'registered_post_type', array(__CLASS__, 'handle_new_post_type'), 10, 2 );
+        add_action( 'unregistered_post_type', array(__CLASS__, 'handle_removed_post_type'), 10, 1 );
     }
 
     public static function get_instance() {
@@ -88,6 +91,42 @@ class PostTypes {
 
             update_option('obiRCPT_post_type_statuses', $post_type_statuses);
             update_option('obiRCPT_post_type_statuses_initialized', true);
+        }
+    }
+
+    public static function adjust_search_query($query) {
+        if (!is_admin() && $query->is_main_query() && $query->is_search) {
+            $post_type_statuses = get_option('obiRCPT_post_type_statuses', []);
+
+            $searchable_post_types = array();
+            foreach ($post_type_statuses as $post_type => $included_in_search) {
+                if ($included_in_search) {
+                    $searchable_post_types[] = $post_type;
+                }
+            }
+
+            $query->set('post_type', $searchable_post_types);
+        }
+    }
+
+    // Add two new methods in your class to handle the addition or removal of post types
+    public static function handle_new_post_type($post_type, $args) {
+        $post_type_statuses = get_option('obiRCPT_post_type_statuses', []);
+
+        // Only add the new post type if it's not already in the array
+        if (!isset($post_type_statuses[$post_type])) {
+            $post_type_statuses[$post_type] = true;  // Or any other default value you want
+            update_option('obiRCPT_post_type_statuses', $post_type_statuses);
+        }
+    }
+
+    public static function handle_removed_post_type($post_type) {
+        $post_type_statuses = get_option('obiRCPT_post_type_statuses', []);
+
+        // Only update the option if the post type is in the array
+        if (isset($post_type_statuses[$post_type])) {
+            unset($post_type_statuses[$post_type]);
+            update_option('obiRCPT_post_type_statuses', $post_type_statuses);
         }
     }
 }

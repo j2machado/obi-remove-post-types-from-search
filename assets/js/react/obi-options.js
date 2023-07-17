@@ -4,6 +4,7 @@ function App() {
   const [activeTab, setActiveTab] = useState("tab1");
   const [postTypes, setPostTypes] = useState([]);
   const [checkedPostTypes, setCheckedPostTypes] = useState({});
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const tabs = [
     { name: "tab1", title: "Public Post Types" },
@@ -13,52 +14,46 @@ function App() {
 
   useEffect(() => {
     fetch(`${obiOptions.root}obiRCPT/v1/post-types`)
-        .then((response) => response.json())
-        .then((data) => {
-            const postTypes = [];
-            const checkedPostTypes = {};
+      .then((response) => response.json())
+      .then((data) => {
+        const postTypes = [];
+        const checkedPostTypes = {};
 
-            for (const postType in data) {
-                postTypes.push(postType);
-                checkedPostTypes[postType] = data[postType]; // This was previously `data[postType].status`, but `data[postType]` is already the status itself
-            }
+        for (const postType in data) {
+          postTypes.push(postType);
+          checkedPostTypes[postType] = data[postType]; // This was previously `data[postType].status`, but `data[postType]` is already the status itself
+        }
 
-            setPostTypes(postTypes);
-            setCheckedPostTypes(checkedPostTypes);
-        });
-}, []);
+        setPostTypes(postTypes);
+        setCheckedPostTypes(checkedPostTypes);
+      });
+  }, []);
 
-
-
-const handleCheckChange = (postType) => {
+  const handleCheckChange = (postType) => {
     const newCheckedStatus = {
-        ...checkedPostTypes,
-        [postType]: !checkedPostTypes[postType],
+      ...checkedPostTypes,
+      [postType]: !checkedPostTypes[postType],
     };
     setCheckedPostTypes(newCheckedStatus);
-};
+  };
 
-const handleUpdateClick = () => {
+  const handleUpdateClick = () => {
     fetch(`${obiOptions.root}obiRCPT/v1/update-post-type-status`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-WP-Nonce': obiOptions.nonce,  // include the nonce in the request headers
-        },
-        body: JSON.stringify(checkedPostTypes),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": obiOptions.nonce, // include the nonce in the request headers
+      },
+      body: JSON.stringify(checkedPostTypes),
     }).then((response) => {
-        if (response.ok) {
-            console.log('Settings updated successfully.');
-        } else {
-            console.log('An error occurred while updating the settings.');
-        }
-    });
+      if (response.ok) {
+        setUpdateSuccess(true);
+        setTimeout(() => setUpdateSuccess(false), 3000); // hide the success message after 3 seconds
+    } else {
+        alert('An error occurred while updating the settings.');
+    }
+});
 };
-
-
-
-
-
 
   return (
     <div>
@@ -125,7 +120,13 @@ const handleUpdateClick = () => {
                 </label>
               </div>
             ))}
-            <button onClick={handleUpdateClick}>Update</button>
+            <button type="button"
+              onClick={handleUpdateClick}
+              className="button button-primary"
+            >
+              Update
+            </button>
+            {updateSuccess && <span style={{ color: 'green', marginLeft: '10px' }}>Settings updated successfully.</span>}
           </div>
         )}
         {activeTab === "tab2" && (
