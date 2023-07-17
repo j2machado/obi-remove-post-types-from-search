@@ -69,6 +69,8 @@ final class Obi_Init
 
         // On plugin activation...
 
+        PostTypes::initialize_post_type_statuses();
+
 
 
     }
