@@ -1,12 +1,12 @@
 Obi Remove Post Types from Search
 =
-The problem: many plugins register custom post types on your website for their data flow. Some of those post types are publicly accessible. In some cases, you don't want your users accessing that data from the WordPress search. Let's say, that is not the way you intend users accessing the data on your site.
+**The problem:** many plugins register custom post types on your website for their data flow. Some of those post types are publicly accessible. In some cases, you don't want your users accessing that data from the WordPress search. Let's say, that is not the way you intend users accessing the data on your site.
 
-The solution: exclude some post types from the WordPress search.
+**The solution:** exclude some post types from the WordPress search.
 
 This plugin does just that. The current stable version now is working.
 
-A demo image:
+**A demo image:**
 
 ![Alt Obi Remove Post Types from Search admin options screenshot](https://obijuan.dev/wp-content/uploads/2023/06/obi-remove-post-types-from-search.png)
 
